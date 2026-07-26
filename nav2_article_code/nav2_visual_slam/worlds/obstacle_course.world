@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="obstacle_course">
+    <include><uri>model://ground_plane</uri></include>
+    <include><uri>model://sun</uri></include>
+    <scene><shadows>false</shadows></scene>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 0 12 0 1.57 0</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <physics type="ode">
+      <real_time_update_rate>500.0</real_time_update_rate>
+      <max_step_size>0.002</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- === 四周低矮围栏（标记边界）=== -->
+    <model name="fence_bottom">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>8.0 0.1 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>8.0 0.1 0.3</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>0 -4.0 0.15 0 0 0</pose>
+    </model>
+
+    <model name="fence_top">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>8.0 0.1 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>8.0 0.1 0.3</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>0 4.0 0.15 0 0 0</pose>
+    </model>
+
+    <model name="fence_left">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.1 8.0 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.1 8.0 0.3</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>-4.0 0 0.15 0 0 0</pose>
+    </model>
+
+    <model name="fence_right">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.1 8.0 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.1 8.0 0.3</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>4.0 0 0.15 0 0 0</pose>
+    </model>
+
+    <!-- === 散布障碍物：圆柱体 + 方盒 === -->
+
+    <!-- 区域1: 左下密集区 -->
+    <model name="cyl1"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.25</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.25</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>-2.5 -2.5 0.25 0 0 0</pose></model>
+
+    <model name="cyl2"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.35</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.35</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>-1.5 -3.0 0.25 0 0 0</pose></model>
+
+    <model name="box1"><static>1</static>
+      <link name="link"><collision name="c"><geometry><box><size>0.6 0.6 0.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.6 0.6 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material></visual></link>
+      <pose>-2.0 -1.5 0.25 0 0 0</pose></model>
+
+    <!-- 区域2: 中央通道—两侧障碍形成狭窄通道 -->
+    <model name="cyl3"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>0.5 -1.5 0.25 0 0 0</pose></model>
+
+    <model name="cyl4"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>0.5 1.5 0.25 0 0 0</pose></model>
+
+    <model name="box2"><static>1</static>
+      <link name="link"><collision name="c"><geometry><box><size>0.8 0.3 0.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.8 0.3 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material></visual></link>
+      <pose>0 0 0.25 0 0 0</pose></model>
+
+    <!-- 区域3: 右上角 -->
+    <model name="cyl5"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.4</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.4</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>2.5 2.5 0.25 0 0 0</pose></model>
+
+    <model name="box3"><static>1</static>
+      <link name="link"><collision name="c"><geometry><box><size>0.5 1.0 0.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.5 1.0 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material></visual></link>
+      <pose>1.5 3.0 0.25 0 0 0</pose></model>
+
+    <!-- 区域4: 右下稀疏—留给目标点位空间 -->
+    <model name="cyl6"><static>1</static>
+      <link name="link"><collision name="c"><geometry><cylinder><radius>0.2</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.2</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material></visual></link>
+      <pose>2.5 -2.0 0.25 0 0 0</pose></model>
+
+  </world>
+</sdf>

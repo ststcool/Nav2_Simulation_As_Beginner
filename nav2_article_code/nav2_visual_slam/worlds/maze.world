@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="default">
+
+    <!-- 基础环境 -->
+    <include><uri>model://ground_plane</uri></include>
+    <include><uri>model://sun</uri></include>
+    <scene><shadows>false</shadows></scene>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 0 15 0 1.57 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+    <!-- 物理引擎 -->
+    <physics type="ode">
+      <real_time_update_rate>500.0</real_time_update_rate>
+      <max_step_size>0.002</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- 加载 gazebo_ros_state 插件以提供 /set_entity_state 等服务 -->
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+    </plugin>
+
+    <!-- === 四面外墙（灰色）=== -->
+
+    <!-- 下外墙 -->
+    <model name="outer_wall_bottom">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>8.0 0.2 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>8.0 0.2 0.5</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Gray</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -4 0.25 0 0 0</pose>
+    </model>
+
+    <!-- 上外墙 -->
+    <model name="outer_wall_top">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>8.0 0.2 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>8.0 0.2 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>0 4 0.25 0 0 0</pose>
+    </model>
+
+    <!-- 左外墙 -->
+    <model name="outer_wall_left">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 8.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 8.0 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>-4 0 0.25 0 0 0</pose>
+    </model>
+
+    <!-- 右外墙 -->
+    <model name="outer_wall_right">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 8.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 8.0 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+      <pose>4 0 0.25 0 0 0</pose>
+    </model>
+
+    <!-- === 三面内墙（红色），形成 S 形走廊 === -->
+
+    <!-- 内墙 A：水平，y=2，x=-3.8 到 x=-1 -->
+    <model name="inner_wall_A">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.8 0.2 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.8 0.2 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material>
+        </visual>
+      </link>
+      <pose>-2.4 2 0.25 0 0 0</pose>
+    </model>
+
+    <!-- 内墙 B：竖直，x=-1，y=-2 到 y=2（底部留通道，方便机器人出起点） -->
+    <model name="inner_wall_B">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 4.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 4.0 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material>
+        </visual>
+      </link>
+      <pose>-1 0 0.25 0 0 0</pose>
+    </model>
+
+    <!-- 内墙 C：竖直，x=2，y=-1 到 y=3（顶部留 1m 通道让机器人绕过） -->
+    <model name="inner_wall_C">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 4.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 4.0 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material>
+        </visual>
+      </link>
+      <pose>2 1 0.25 0 0 0</pose>
+    </model>
+
+
+
+    <!-- 静态障碍物：蓝色圆柱体 -->
+    <model name="cylinder_obstacle">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.3</radius><length>0.5</length></cylinder></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Blue</name></script></material>
+        </visual>
+      </link>
+      <pose>0 1.5 0.25 0 0 0</pose>
+    </model>
+
+
+
+    <!-- 动态障碍物：沿Y轴来回移动的红色方块 -->
+    <!-- 注：必须用 <model> 而非 <actor>，因为 actor 不参与物理射线检测（激光会穿透） -->
+    <model name="moving_box">
+      <pose>1.5 -3.0 0.25 0 0 0</pose>
+      <link name="link">
+        <gravity>false</gravity>
+        <collision name="collision">
+          <geometry><box><size>0.4 0.4 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.4 0.4 0.5</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Red</name></script></material>
+        </visual>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.034</ixx><ixy>0.0</ixy><ixz>0.0</ixz>
+            <iyy>0.034</iyy><iyz>0.0</iyz>
+            <izz>0.027</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+
+
+
+
+
+
+
+  </world>
+</sdf>
