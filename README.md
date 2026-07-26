@@ -101,7 +101,7 @@ ros2 launch $HOME/nav2_article_code/nav2_visual_slam/launch/visual_slam_launch.p
 
 | 篇号 | 标题 | 难度 | 核心内容 | 依赖目录 | 知乎链接 |
 |------|------|------|---------|---------|---------|
-| 1 | 30 分钟跑通自主导航与 SLAM 建图 | ★☆☆☆☆ | 环境搭建、启动仿真、首次导航、SLAM 建图 | — | |
+| 1 | 30 分钟跑通自主导航与 SLAM 建图 | ★☆☆☆☆ | 环境搭建、启动仿真、首次导航、SLAM 建图 | — |https://zhuanlan.zhihu.com/p/2049276128863507306|
 | 2 | 理解 TF 变换树、代价地图与导航服务器架构 | ★★☆☆☆ | REP-105 TF 树、Costmap 分层、Nav2 服务器管道 | — |https://zhuanlan.zhihu.com/p/2049881249595102605|
 | 3 | 自定义仿真世界与 SLAM 建图 | ★★★☆☆ | 手写 SDF 世界文件、迷宫 SLAM、PGM 编辑 | `nav2_algorithm_lab` | |
 | 4 | 算法对比与自动化测试 | ★★★☆☆ | 4 种 Planner×Controller 对比、send_goal + run_tests 框架 | `nav2_algorithm_lab` + `nav2_testbed` | |
