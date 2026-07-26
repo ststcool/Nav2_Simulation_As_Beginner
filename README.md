@@ -1,6 +1,7 @@
 # Nav2 仿真测试代码仓库
 
 本仓库是知乎专栏《入门 Nav2》系列文章的配套代码和配置文件。
+https://www.zhihu.com/column/c_2049513841357330012
 
 > 技术栈：ROS2 Humble + Gazebo Classic 11 + Nav2 1.1 + TurtleBot3 waffle + RTAB-Map
 
